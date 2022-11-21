@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import connect from "./helpers/database/database.js";
 import userRoutes from "./api/user/user.routes.js";
+import playerRoutes from "./api/player/player.routes.js";
 import setError from "./helpers/error/handle.error.js";
 
 connect();
@@ -32,7 +33,8 @@ server.use(express.urlencoded({ limit: "1mb", extended: true }));
 server.set("secretKey", process.env.SECRET_KEY_JWT);
 
 server.use("/user", userRoutes);
-server.use("*", (req, res, next) => next(setError(404, "Route not foundks")));
+server.use("/players", playerRoutes);
+server.use("*", (req, res, next) => next(setError(404, "Route not found")));
 
 server.use((error, req, res, next) => {
   return res

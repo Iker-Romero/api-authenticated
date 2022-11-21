@@ -45,12 +45,12 @@ export var register = function (req, res, next) { return __awaiter(void 0, void 
             case 0:
                 _a.trys.push([0, 3, , 4]);
                 newUser = new User(req.body);
-                return [4 /*yield*/, User.findOne({ username: user.newUsername })];
+                return [4 /*yield*/, User.findOne({ username: newUser.newUsername })];
             case 1:
                 userExists = _a.sent();
                 if (userExists)
                     return [2 /*return*/, next("The username is already taken")];
-                return [4 /*yield*/, user.save()];
+                return [4 /*yield*/, newUsername.save()];
             case 2:
                 newUserInDB = _a.sent();
                 return [2 /*return*/, res.json({

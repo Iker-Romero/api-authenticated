@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connect from "./helpers/database/database.js";
 import userRoutes from "./api/user/user.routes.js";
+import playerRoutes from "./api/player/player.routes.js";
 import setError from "./helpers/error/handle.error.js";
 connect();
 var server = express();
@@ -21,6 +22,7 @@ server.use(express.json({ limit: "1mb" }));
 server.use(express.urlencoded({ limit: "1mb", extended: true }));
 server.set("secretKey", process.env.SECRET_KEY_JWT);
 server.use("/user", userRoutes);
+server.use("/players", playerRoutes);
 server.use("*", function (req, res, next) { return next(setError(404, "Route not foundks")); });
 server.use(function (error, req, res, next) {
     return res

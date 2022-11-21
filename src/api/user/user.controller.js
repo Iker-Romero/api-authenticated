@@ -6,12 +6,12 @@ import setError from "../../helpers/error/handle.error.js";
 
 export const register = async (req, res, next) => {
   try {
-    const newUser = new User(req.body);
+    const newUser = new User(req.body).populate("players");
 
-    const userExists = await User.findOne({ username: user.newUsername });
+    const userExists = await User.findOne({ username: newUser.newUsername });
     if (userExists) return next("The username is already taken");
 
-    const newUserInDB = await user.save();
+    const newUserInDB = await newUser.save();
     return res.json({
       status: 201,
       message: "New user registered",
