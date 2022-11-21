@@ -29,6 +29,7 @@ app.use(function (error, req, res, next) {
         .status(error.status || 500)
         .json(error.message || "Unexpected error");
 });
+app.disable("x-powered-by");
 app.listen(process.env.PORT, function () {
     console.log("app running on port: ".concat(process.env.PORT));
 });

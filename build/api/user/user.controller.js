@@ -44,8 +44,8 @@ export var register = function (req, res, next) { return __awaiter(void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 3, , 4]);
-                newUser = new User(req.body).populate("players");
-                return [4 /*yield*/, User.findOne({ username: newUser.newUsername })];
+                newUser = new User(req.body);
+                return [4 /*yield*/, User.findOne({ username: newUser.username })];
             case 1:
                 userExists = _a.sent();
                 if (userExists)
@@ -77,12 +77,12 @@ export var login = function (req, res, next) { return __awaiter(void 0, void 0, 
                 if (!userInDB)
                     return [2 /*return*/, next("The username doesn't exist")];
                 if (bcrypt.compareSync(req.body.password, userInDB.password)) {
-                    console.log("igualesks");
                     userInDB.password = null; // userInDB is a copy from the DB and we remove that password copy from our code
                     token = jwt.sign({
                         id: userInDB._id,
                         username: userInDB.username,
-                    }, req.app.get("secretKey"), {
+                    }, req.app.get("secretKey"), // req.app is a default property, it's not defined in the index.js with express()
+                    {
                         expiresIn: "1h",
                     });
                     console.log(token);

@@ -1,9 +1,10 @@
 import express from "express";
 import { getPlayer, getPlayers, postPlayer, updatePlayer, deletePlayer, } from "./player.controller.js";
+import isAuth from "../../middlewares/auth.middleware.js";
 var playerRoutes = express.Router();
-playerRoutes.get("/", getPlayers);
-playerRoutes.get("/:id", getPlayer);
-playerRoutes.post("/", postPlayer);
-playerRoutes.patch(":id", updatePlayer);
-playerRoutes.delete("/:id", deletePlayer);
+playerRoutes.get("/", [isAuth], getPlayers);
+playerRoutes.get("/:id", [isAuth], getPlayer);
+playerRoutes.post("/", [isAuth], postPlayer);
+playerRoutes.patch(":id", [isAuth], updatePlayer);
+playerRoutes.delete("/:id", [isAuth], deletePlayer);
 export default playerRoutes;
